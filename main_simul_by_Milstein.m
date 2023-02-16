@@ -1,0 +1,24 @@
+% main_simul_by_Milstein.m
+%   Ver. 0.1 (15-Feb-2023)
+%      Comments were updated for GitHub.
+%   Ver. 0 (1-Jun-2022)
+%      This program manages simulations, and it saves
+%      the results in files.
+%%%
+%%% input %%%
+mm=512; % this is for the base step size: 2^{-mm}.
+i_step=1; % this is for a step size: i_step*(base step size).
+traject=1000; % number of trajectories.
+lam=-1.0/4; % a parameter in an SDE.
+sig1=1.0/2; % a parameter in an SDE.
+sig2=2.0/5; % a parameter in an SDE.
+%%% output %%%
+% yVec: a numerical solution for an SDE.
+%%%%%%%%%%%%%%
+%
+simul_Milstein;
+%
+formatSpec='yVec_Milstein_step_%ddiv%d_tr%d_lm_%3.2f_s1_%3.2f_s2_%3.2f';
+tmpData=[yVec(1,1:traject)' yVec(2,1:traject)'];
+tmpStr=sprintf(formatSpec,i_step,mm,traject,lam,sig1,sig2);
+save(tmpStr, 'tmpData','-ASCII');
